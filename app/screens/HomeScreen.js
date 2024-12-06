@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ImageBackground,
   Animated,
+  Modal,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { ref, onValue, set } from "firebase/database";
@@ -15,7 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons"; // Import Ionicons
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [Count, setValue] = useState(0);
-  
+  const [modalVisible, setModalVisible] = useState(false); // Modal visibility
   const [borderColorAnimation] = useState(new Animated.Value(0));
   const colors = ["#ff69b4", "#ff0000", "#ffff00", "#00ff00", "#0000ff", "#4b0082", "#9400d3"];
 
@@ -55,11 +56,22 @@ const HomeScreen = () => {
     set(valueRef, Count - 1);
   };
 
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleLogout = () => {
+    // Implement logout functionality here
+    console.log("Logged out");
+    navigation.navigate("LoginScreen");
+  };
+
   return (
     <ImageBackground style={styles.container} source={require("../assets/images/Background.jpg")}>
       <Animated.View style={[styles.countContainer, { borderColor: borderColorInterpolate }]}>
-        <Text style={styles.countText}>Counting Machine Iot</Text>
+        <Text style={styles.countText}>Counting Machine IoT</Text>
         <Text style={styles.value}>{Count}</Text>
+        {/* Uncomment below if you want plus/minus buttons
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handlePlus}>
             <Text style={styles.buttonText}>+</Text>
@@ -68,21 +80,40 @@ const HomeScreen = () => {
             <Text style={styles.buttonText}>-</Text>
           </TouchableOpacity>
         </View>
+        */}
       </Animated.View>
 
       <View style={styles.navContainer}>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("AboutScreen")}>
-          <Ionicons name="information-circle-outline" size={24} color="white" />
-          <Text style={styles.buttonText}>About Us</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} onPress={() => navigation.navigate("LoginScreen")}>
-          <Ionicons name="log-out-outline" size={24} color="white" />
-          <Text style={styles.buttonText}>Logout</Text>
+        <TouchableOpacity style={styles.profileButton} onPress={toggleModal}>
+          <Ionicons name="person-circle-outline" size={30} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
+
+      {/* User Information Modal */}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={toggleModal}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            
+            <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate("AboutScreen")}>
+              <Text style={styles.buttonText}>About Us</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={handleLogout}>
+              <Text style={styles.buttonText}>Log Out</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+              <Text style={styles.buttonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </ImageBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -107,18 +138,16 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
+    bottom: 10,
+    right: 10,
     padding: 10,
     backgroundColor: "rgba(44, 120, 108, 0.8)", // Semi-transparent background
+    borderRadius: 10,
   },
-  navButton: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginHorizontal: 20,
+  profileButton: {
+    padding: 10,
   },
   button: {
     backgroundColor: "#33cccc",
@@ -141,6 +170,44 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginTop: 20,
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  modalText: {
+    fontSize: 16,
+    marginBottom: 20,
+  },
+  modalButton: {
+    backgroundColor: "#33cccc",
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 5,
+    width: '100%',
+    alignItems: 'center',
+  },
+  closeButton: {
+    backgroundColor: "#ff4d4d",
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 5,
+    width: '100%',
+    alignItems: 'center',
   },
 });
 
