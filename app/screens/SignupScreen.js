@@ -89,18 +89,23 @@ const SignupScreen = ({ navigation }) => {
     <ImageBackground style={styles.container} source={require("../assets/images/Background.jpg")}>
       <Animated.View style={[styles.blurredContainer, { borderColor: borderColorInterpolate }]}>
         <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="rgba(255, 255, 255, 0.7)"
-            value={email}
-            onChangeText={setEmail}
-          />
+          <View style={styles.inputWrapper}>
+            <Ionicons name="mail" size={20} color="rgba(255, 255, 255, 0.7)" style={styles.icon} />
+            <TextInput
+              style={[styles.input, { paddingLeft: 30 }]}
+              placeholder="Email"
+              placeholderTextColor="rgba(255, 255, 255, 0.7)"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
         </View>
+
         <View style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
+            <Ionicons name="lock-closed" size={20} color="rgba(255, 255, 255, 0.7)" style={styles.icon} />
             <TextInput
-              style={styles.input}
+              style={[styles.input, { paddingLeft: 30 }]}
               placeholder="Password"
               placeholderTextColor="rgba(255, 255, 255, 0.7)"
               secureTextEntry={!showPassword}
@@ -109,15 +114,17 @@ const SignupScreen = ({ navigation }) => {
             />
             {password.length > 0 && (
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
-                <Ionicons name={showPassword ? "eye" : "eye-off"} size={24} color="rgba(255, 255, 255, 0.7)" />
+                <Ionicons name={showPassword ? "eye" : "eye-off"} size={20} color="rgba(255, 255, 255, 0.7)" />
               </TouchableOpacity>
             )}
           </View>
         </View>
+
         <View style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
+            <Ionicons name="lock-closed" size={20} color="rgba(255, 255, 255, 0.7)" style={styles.icon} />
             <TextInput
-              style={styles.input}
+              style={[styles.input, { paddingLeft: 30 }]}
               placeholder="Confirm Password"
               placeholderTextColor="rgba(255, 255, 255, 0.7)"
               secureTextEntry={!showConfirmPassword}
@@ -131,9 +138,16 @@ const SignupScreen = ({ navigation }) => {
             )}
           </View>
         </View>
+
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.button} onPress={handleSignup}>
             <Text style={styles.buttonText}>Create</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>Already have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
+            <Text style={styles.signupText}>Log In</Text>
           </TouchableOpacity>
         </View>
       </Animated.View>
@@ -177,16 +191,39 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.7)', // Set input border color
     padding: 10,
+    paddingVertical: 10,
     width: "100%",
+    height: 40,
     borderRadius: 10,
     fontFamily: "HanumanBlack",
     textAlign: "center",
     color: 'rgba(255, 255, 255, 0.7)',
+    maxHeight: 40,
+  },
+  icon: {
+    position: 'absolute',
+    left: 15,
+    top: 10,
   },
   eyeIcon: {
     position: 'absolute',
     right: 15,
     top: 10,
+  },
+  footerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+  footerText: {
+    color: 'white',
+    marginRight: 5,
+  },
+  signupText: {
+    color: 'white',
+    fontSize: 18,
+    textDecorationLine: "underline",
   },
   button: {
     backgroundColor: "transparent",

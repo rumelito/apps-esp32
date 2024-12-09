@@ -69,7 +69,7 @@ const HomeScreen = () => {
   return (
     <ImageBackground style={styles.container} source={require("../assets/images/Background.jpg")}>
       <Animated.View style={[styles.countContainer, { borderColor: borderColorInterpolate }]}>
-        <Text style={styles.countText}>Counting Machine IoT</Text>
+        <Text style={styles.countText}>Conveyor Counter</Text>
         <Text style={styles.value}>{Count}</Text>
         {/* Uncomment below if you want plus/minus buttons
         <View style={styles.buttonContainer}>

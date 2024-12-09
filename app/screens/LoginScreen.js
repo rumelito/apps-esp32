@@ -28,6 +28,8 @@ const LoginScreen = ({ navigation }) => {
   const [fontsLoaded, fontsError] = useFonts({
     HanumanBlack: require("../assets/fonts/Hanuman-Black.ttf"),
     PlayfairDisplayBlack: require("../assets/fonts/PlayfairDisplay-Black.ttf"),
+    Bridal: require("../assets/fonts/Bridal.otf"),
+
   });
 
   useEffect(() => {
@@ -77,16 +79,24 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <ImageBackground style={styles.container} source={require("../assets/images/Background.jpg")}>
+      <View style={styles.Counting}>
+        <Text style={styles.title}>CONVEYOR </Text>
+      </View>
+      <View style={styles.Counting}>
+        <Text style={styles.counter}> COUNTER</Text>
+      </View>
       <Animated.View style={[styles.blurredContainer, { borderColor: borderColorInterpolate }]}>
         <View style={styles.inputContainer}>
           <View style={styles.inputWrapper}>
             <Ionicons name="person" size={20} color="rgba(255, 255, 255, 0.7)" style={styles.icon} />
             <TextInput
-              style={[styles.input, { color: 'rgba(255, 255, 255, 0.7)', paddingLeft: 10 }]}
+              style={[styles.input, { color: 'rgba(255, 255, 255, 0.7)', paddingLeft: 40 }]}
               placeholder="Username"
               placeholderTextColor="rgba(255, 255, 255, 0.7)"
               value={username}
               onChangeText={setUsername}
+              maxLength={30}
+              textAlign="center"
             />
           </View>
         </View>
@@ -94,12 +104,14 @@ const LoginScreen = ({ navigation }) => {
           <View style={styles.inputWrapper}>
             <Ionicons name="lock-closed" size={20} color="rgba(255, 255, 255, 0.7)" style={styles.icon} />
             <TextInput
-              style={[styles.input, { color: 'rgba(255, 255, 255, 0.7)', paddingLeft: 10 }]}
+              style={[styles.input, { color: 'rgba(255, 255, 255, 0.7)', paddingLeft: 40 }]}
               placeholder="Password"
               secureTextEntry={!showPassword}
               placeholderTextColor="rgba(255, 255, 255, 0.7)"
               value={password}
               onChangeText={setPassword}
+              maxLength={30}
+              textAlign="center"
             />
             {password.length > 0 && (
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.eyeIcon}>
@@ -134,41 +146,59 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  title: {
+    color: '#f5f5dc', // Set title color to beige
+    padding: 1,
+    bottom: 50,
+    fontSize: 40,
+    fontFamily: "HanumanBlack",
+  },
+  counter: {
+    color: '#f5f5dc', // Set title color to beige
+    padding: 1,
+    bottom: 50,
+    fontSize: 40,
+    fontFamily: "HanumanBlack",
+    right: 15
+  },
   blurredContainer: {
     backgroundColor: 'rgba(255, 255, 255, 0.3)', // Semi-transparent background
     borderRadius: 12,
     padding: 20,
-    width: 300, // Adjusted width for better appearance
-    height: 280, // Adjusted height for better appearance
+    width: 300,
+    height: 280,
     alignItems: "center",
-    borderWidth: 2, // Increased border width for better visibility
-    borderColor: 'rgba(255, 255, 255, 0.7)', // Set default border color
-    shadowColor: "#000", // Shadow color
-    shadowOffset: { width: 0, height: 2 }, // Shadow offset
-    shadowOpacity: 0.3, // Shadow opacity
-    shadowRadius: 4, // Shadow radius
-    elevation: 5, // For Android
+    borderWidth: 2,
+    borderColor: 'white', // Set border color to white
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 5,
   },
   inputContainer: {
     marginBottom: 20,
     width: '100%',
   },
   inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
     width: '100%',
     borderRadius: 10,
     padding: 2,
-    alignItems: "center",
     position: 'relative',
   },
   input: {
     backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: 'white', // White border for input
-    padding: 10,
+    borderColor: 'white',
+    paddingVertical: 10,
+    height: 40,
     width: "100%",
     borderRadius: 10,
     fontFamily: "HanumanBlack",
     textAlign: "center",
+    maxHeight: 40,
   },
   icon: {
     position: 'absolute',
@@ -181,14 +211,14 @@ const styles = StyleSheet.create({
     top: 10,
   },
   button: {
-    backgroundColor: "transparent", // Transparent background for button
+    backgroundColor: "transparent",
     borderWidth: 1,
-    borderColor: 'white', // White border for button
+    borderColor: 'white',
     padding: 3,
     width: 100,
     height: 30,
     borderRadius: 10,
-    marginLeft: 10, // Space between checkbox and button
+    marginLeft: 10,
   },
   rememberMeContainer: {
     flexDirection: "row",
@@ -207,7 +237,7 @@ const styles = StyleSheet.create({
   },
   rememberMeText: {
     color: 'white',
-    marginRight: 10, // Space between text and button
+    marginRight: 10,
   },
   footerContainer: {
     flexDirection: "row",
@@ -227,7 +257,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: "center",
     fontFamily: "PlayfairDisplayBlack",
-    color: 'white', // White text for the button
+    color: 'white',
   },
 });
 

@@ -22,17 +22,45 @@ const AboutUsScreen = () => {
 
   const members = [
     {
-       
-      image: require('../assets/images/anya.jpg'),
+      name: 'MONTALBO',
+      description: 'BACKEND DEVELOPER',
+      image: require('../assets/images/rommel.jpg'),
+    },
+    {
+      name: 'PALA',
+      description: 'FRONTEND',
+      email: 'pantaleon@example.com',
+      image: require('../assets/images/pala.jpg'),
+    },
+    {
+      name: 'PANDEAGUA',
+      description: 'DATABASE ADMINISTRATOR',
+      image: require('../assets/images/pande.jpg'),
     },
     {
       name: 'PANTALEON',
-      description: 'LAZY LINKING PROTOTYPE',
-      email: 'pantaleon@example.com',
-      phone: '123-456-7891',
-      facebook: 'https://facebook.com/pantaleon',
-      instagram: 'https://instagram.com/pantaleon',
-      image: require('../assets/images/anya.jpg'),
+      description: 'USER INSIGHT SPECIALIST',
+      image: require('../assets/images/lovely.jpg'),
+    },
+    {
+      name: 'QUILBIO',
+      description: 'ASSURANCE SPECIALIST',
+      image: require('../assets/images/julie.jpg'),
+    },
+    {
+      name: 'QUINDOZA',
+      description: 'PROJECT MANAGER',
+      image: require('../assets/images/ef.jpg'),
+    },
+    {
+      name: 'SECUYA',
+      description: 'UI/UX DESIGN',
+      image: require('../assets/images/lori.jpg'),
+    },
+    {
+      name: 'VALIENTE',
+      description: 'RELEASE MANAGER',
+      image: require('../assets/images/glen.jpg'),
     },
   ];
 
@@ -43,10 +71,14 @@ const AboutUsScreen = () => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
+
   const handleLogout = () => {
     // Implement logout functionality here
     console.log("Logged out");
-    navigation.navigate("LoginScreen");
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "LoginScreen" }],
+    });
   };
 
   return (
@@ -76,16 +108,7 @@ const AboutUsScreen = () => {
                 {selectedMemberIndex === index && (
                   <View style={styles.cardDetails}>
                     <Text style={styles.cardDescription}>{member.description}</Text>
-                    <Text style={styles.cardInfo}>Email: {member.email}</Text>
-                    <Text style={styles.cardInfo}>Phone: {member.phone}</Text>
-                    <View style={styles.iconContainer}>
-                      <TouchableOpacity onPress={() => handleLinking(member.facebook)}>
-                        <Icon name="facebook" size={24} color="#3C3D37" />
-                      </TouchableOpacity>
-                      <TouchableOpacity onPress={() => handleLinking(member.instagram)}>
-                        <Icon name="instagram" size={24} color="#3C3D37" />
-                      </TouchableOpacity>
-                    </View>
+
                   </View>
                 )}
               </TouchableOpacity>
@@ -143,7 +166,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   MeetContainer: {
-    backgroundColor: 'rgba(183, 183, 183, 0.7)',
+    backgroundColor:  'rgba(255, 255, 255, 0.3)',
     padding: 5,
     margin: 30,
     borderRadius: 10,
@@ -155,7 +178,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#3C3D37',
+    color: '#fff',
     textAlign: 'center',
     marginBottom: 3,
   },
@@ -166,12 +189,14 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '48%',
-    backgroundColor: 'rgba(183, 183, 183, 0.8)',
+    backgroundColor:  'rgba(255, 255, 255, 0.3)',
     borderRadius: 10,
     marginBottom: 20,
     padding: 10,
     alignItems: 'center',
     height: 200,
+    borderWidth: 2,
+    borderColor: '#ffff'
   },
   cardExpanded: {
     height: 'auto',
@@ -185,18 +210,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#3C3D37',
+    color: '#ffff',
     textAlign: 'center',
+    fontFamily: 'hanumanBlack'
   },
   cardDescription: {
     marginTop: 5,
     fontSize: 14,
-    color: '#3C3D37',
+    color: '#fff',
     textAlign: 'center',
   },
   cardInfo: {
     fontSize: 12,
-    color: '#3C3D37',
+    color: '#fff',
     textAlign: 'center',
   },
   iconContainer: {
@@ -211,7 +237,7 @@ const styles = StyleSheet.create({
     bottom: 10,
     right: 10,
     padding: 10,
-    backgroundColor: "rgba(44, 120, 108, 0.8)", // Semi-transparent background
+    backgroundColor: "rgba(65, 61, 61, 0.5)", // Semi-transparent background
     borderRadius: 10,
   },
   profileButton: {
@@ -225,7 +251,9 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '80%',
-    backgroundColor: 'white',
+    backgroundColor: "rgba(65, 61, 61, 0.5)",
+    borderWidth: 1,
+    borderColor: 'white',
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
