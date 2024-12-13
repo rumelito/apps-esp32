@@ -37,7 +37,7 @@ const GetStartedScreen = () => {
           </TouchableOpacity>
         </View>
         <View style={styles.footer}>
-          <Text style={styles.footerText}>Copyright @2024 TLE Carpentry App</Text>
+          <Text style={styles.footerText}>Copyright @2024 Conveyor Counter App</Text>
         </View>
       </ImageBackground>
     </SafeAreaView>

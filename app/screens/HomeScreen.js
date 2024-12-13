@@ -11,12 +11,12 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { ref, onValue, set } from "firebase/database";
 import { rtdb } from "./../../firebaseConfig";
-import Ionicons from "react-native-vector-icons/Ionicons"; // Import Ionicons
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const [Count, setValue] = useState(0);
-  const [modalVisible, setModalVisible] = useState(false); // Modal visibility
+  const [modalVisible, setModalVisible] = useState(false);
   const [borderColorAnimation] = useState(new Animated.Value(0));
   const colors = ["#ff69b4", "#ff0000", "#ffff00", "#00ff00", "#0000ff", "#4b0082", "#9400d3"];
 
@@ -46,22 +46,18 @@ const HomeScreen = () => {
     outputRange: colors,
   });
 
-  const handlePlus = () => {
+  const handleReset = () => {
     const valueRef = ref(rtdb, "Count");
-    set(valueRef, Count + 1);
-  };
-
-  const handleMinus = () => {
-    const valueRef = ref(rtdb, "Count");
-    set(valueRef, Count - 1);
-  };
-
-  const toggleModal = () => {
-    setModalVisible(!modalVisible);
+    set(valueRef, 0); // Reset count in Firebase
+    const resetRef = ref(rtdb, "reset");
+    set(resetRef, 1).then(() => {
+      console.log("Reset command sent to Arduino.");
+    }).catch((error) => {
+      console.error("Error sending reset command:", error);
+    });
   };
 
   const handleLogout = () => {
-    // Implement logout functionality here
     console.log("Logged out");
     navigation.navigate("LoginScreen");
   };
@@ -71,41 +67,33 @@ const HomeScreen = () => {
       <Animated.View style={[styles.countContainer, { borderColor: borderColorInterpolate }]}>
         <Text style={styles.countText}>Conveyor Counter</Text>
         <Text style={styles.value}>{Count}</Text>
-        {/* Uncomment below if you want plus/minus buttons
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={handlePlus}>
-            <Text style={styles.buttonText}>+</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={handleMinus}>
-            <Text style={styles.buttonText}>-</Text>
-          </TouchableOpacity>
-        </View>
-        */}
       </Animated.View>
 
+      <TouchableOpacity style={styles.resetButton} onPress={handleReset}>
+        <Text style={styles.buttonText}>Reset</Text>
+      </TouchableOpacity>
+
       <View style={styles.navContainer}>
-        <TouchableOpacity style={styles.profileButton} onPress={toggleModal}>
+        <TouchableOpacity style={styles.profileButton} onPress={() => setModalVisible(true)}>
           <Ionicons name="person-circle-outline" size={30} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
 
-      {/* User Information Modal */}
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        onRequestClose={toggleModal}
+        onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            
             <TouchableOpacity style={styles.modalButton} onPress={() => navigation.navigate("AboutScreen")}>
               <Text style={styles.buttonText}>About Us</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.modalButton} onPress={handleLogout}>
               <Text style={styles.buttonText}>Log Out</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.closeButton} onPress={toggleModal}>
+            <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
               <Text style={styles.buttonText}>Close</Text>
             </TouchableOpacity>
           </View>
@@ -123,7 +111,7 @@ const styles = StyleSheet.create({
   },
   countContainer: {
     justifyContent: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.5)", // Semi-transparent background
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
     alignItems: "center",
     padding: 20,
     borderRadius: 10,
@@ -141,21 +129,16 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     position: "absolute",
     bottom: 10,
-    right: 10,
+    right: 150,
     padding: 10,
-    backgroundColor: "rgba(44, 120, 108, 0.8)", // Semi-transparent background
+    backgroundColor: "rgba(44, 120, 108, 0.8)",
     borderRadius: 10,
   },
-  profileButton: {
-    padding: 10,
-  },
-  button: {
-    backgroundColor: "#33cccc",
+  resetButton: {
+    backgroundColor: "#ff4d4d",
     padding: 20,
     borderRadius: 10,
-    marginBottom: 10,
-    marginHorizontal: 10,
-    width: 100,
+    marginVertical: 10,
   },
   buttonText: {
     textAlign: "center",
@@ -165,11 +148,6 @@ const styles = StyleSheet.create({
     fontSize: 100,
     color: "#434a2a",
     textAlign: "center",
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 20,
   },
   modalContainer: {
     flex: 1,
@@ -183,15 +161,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     padding: 20,
     alignItems: 'center',
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  modalText: {
-    fontSize: 16,
-    marginBottom: 20,
   },
   modalButton: {
     backgroundColor: "#33cccc",

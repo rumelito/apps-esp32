@@ -230,34 +230,47 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 10,
   },
+  // navContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "flex-end",
+  //   position: "absolute",
+  //   bottom: 10,
+  //   right: 150,
+  //   padding: 10,
+  //   backgroundColor: "rgba(65, 61, 61, 0.5)", // Semi-transparent background
+  //   borderRadius: 10,
+  //   borderWidth: 2,
+  //   borderColor: 'white',
+  //   alignItems: "center",
+  // },
   navContainer: {
     flexDirection: "row",
     justifyContent: "flex-end",
     position: "absolute",
     bottom: 10,
-    right: 10,
+    right: 150,
     padding: 10,
-    backgroundColor: "rgba(65, 61, 61, 0.5)", // Semi-transparent background
+    backgroundColor: "rgba(44, 120, 108, 0.8)",
     borderRadius: 10,
   },
-  profileButton: {
-    padding: 10,
-  },
-  modalContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-  },
-  modalContent: {
-    width: '80%',
-    backgroundColor: "rgba(65, 61, 61, 0.5)",
-    borderWidth: 1,
-    borderColor: 'white',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-  },
+  // profileButton: {
+  //   padding: 10,
+  // },
+  // modalContainer: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   alignItems: "center",
+  //   backgroundColor: "rgba(0, 0, 0, 0.5)",
+  // },
+  // modalContent: {
+  //   width: '80%',
+  //   backgroundColor: "rgba(65, 61, 61, 0.5)",
+  //   borderWidth: 1,
+  //   borderColor: 'white',
+  //   borderRadius: 10,
+  //   padding: 20,
+  //   alignItems: 'center',
+  // },
   modalTitle: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -266,6 +279,28 @@ const styles = StyleSheet.create({
   modalText: {
     fontSize: 16,
     marginBottom: 20,
+  },
+  // modalButton: {
+  //   backgroundColor: "#33cccc",
+  //   padding: 10,
+  //   borderRadius: 5,
+  //   marginVertical: 5,
+  //   width: '100%',
+  //   alignItems: 'center',
+  // },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
   },
   modalButton: {
     backgroundColor: "#33cccc",
